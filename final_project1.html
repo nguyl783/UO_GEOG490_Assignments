@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Albina Neighborhood, Portland History</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <!--   Link to Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        /*  style for paragraph tags */
+        p {
+            color: black;
+            font-size: 20px;
+        }
+
+        /* style for heading level 3 tags */
+        h3 {
+        color: black;
+        margin-left: 10px;
+        font-size: 30px;
+        font-weight: bolder;
+        }
+        
+        /* style for heading level 4 tags */
+        h4 {
+            color: black;
+            margin-left: 9px;
+            font-size: 15px;
+        }
+        /* style for list tags */
+        li {
+            color: black;
+            font-size: 20px;
+        }
+        
+        /* Overrides the pop-up width slightly bigger min-width than the default Mapbox CSS*/
+        .mapboxgl-popup {
+            font-family: 'Open Sans', sans-serif;
+        } 
+
+        /*  style for items with the class "LegendContainer" */
+        .LegendContainer {
+             position: fixed;
+             bottom: 30px;
+             left: 30px;
+             z-index: 2;
+             width: 400px;
+             height: 45px;
+             background: #f4c430;
+             transition: width 2s, height 2s;
+             border-radius: 7px;
+             opacity: 0.9;
+             border: 1px solid #000000;
+        }
+
+        /*  style for items with the class "descriptionPanel" when active */
+        .LegendContainer:active {
+             width: 240px;
+             height: 250px;
+        }
+
+       /* style for items with the class "legendItem" */
+       .legendItem {
+           margin: 0px;
+           font-family: 'Open Sans', sans-serif;
+           font-weight: 600;
+           padding-left: 2px;
+           display:inline-block;
+           margin:auto;
+           transform: translate(50%, 50%);
+        }
+
+
+       /* style for items with the class "layerDescription" */
+       .layerDescription {
+         color: black;
+         padding-left: 3px;
+        }
+
+
+        .albina {
+            color:#a9a9a9;
+        }
+        .notAlbina{
+            color:#cccccc;
+        }
+        
+        /* style for map page */
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+        
+        /*style for feature section*/
+        #map {
+            position: fixed;
+            width: 60%;
+        }
+        #features {
+            width: 40%;
+            margin-left: 60%;
+            font-family: 'Open Sans', sans-serif;
+            overflow-y: scroll;
+            background-color: #f4c430;
+        }
+        section {
+            padding: 25px 50px;
+            line-height: 25px;
+            border-bottom: 2px solid #000000;
+            border-left: 2px solid #000000;
+            opacity: 0.2;
+        }
+        section.active {
+            opacity: 1;
+        }
+        section:last-child {
+            border-bottom: none;
+            margin-bottom: 200px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id='map'></div>
+    <div class="LegendContainer">
+        <div class="legendItem">
+            <span class="albina">&#11044;</span>
+            <span class="layerDescription">Albina Region</span>
+        </div>
+        <div class="legendItem">
+            <span class="notAlbina">&#11044;</span>
+            <span class="layerDescription">Other Regions</span>
+        </div>
+    </div>
+    <div id="features">
+    <section id="how-to" class="active">
+        <h3>WHAT ARE YOU LOOKING AT?</h3>
+        <p>
+            The Albina Neighborhood in Portland, Oregon is known as the heart of Portland's Black community. It has a rich history that is full of stories, people, and culture that continues to influence the city that we know now. Although we are able to benefit from the entertainment and culture located in the Albina Neighborhood, it is important to acknowledge the parts of its history that is oftentimes overlooked. The history of the Albina Neighborhood serves as a reminder that Portland's liberal and progressive policies has not been and is not always true for historically marginalized communities. To learn more, continue scrolliing on this page.
+            <br><br>
+            <img src ="https://www.oregonlive.com/resizer/yBafA6f2Eh7LZoPhVNqGIU2D09Y=/1280x0/smart/advancelocal-adapter-image-uploads.s3.amazonaws.com/image.oregonlive.com/home/olive-media/width2048/img/portland_impact/photo/ipjazz2jpg-5a04da7523f38dd2.jpg" alt="Historical Albina Neighborhood" width="100%">
+            <h4>Image Source: Oregon Live, 2018</h4>
+        </p>
+    </section>
+    <section id="intro">
+        <h3>INTRODUCTION:</h3>
+        <p>
+            By the late 1880s, Albina - located across the Willamette River from Portland - was the fastest growing city in Oregon. At the time, Portland only existed on the west side of the river. It wasn't until July 1891 that the City of Albina and other regions of (now) East Portland was annexed by the City of Portland. Today, the Albina area includes the neighborhoods of Eliot, Boise, King, Humboldt, Overlook, Irvington, Piedmont, and Lloyd.
+            <br><br>
+            Early settlers living in Albina were primarily Irish, German, and Scandinavian immigrants. By 1910, the Black neighborhoods in NW Portland were too crowded and Black Portlanders began to look for homes across the river to fill the voids in the neighborhoods previously occupied by white families who moved to the suburbs of Portland. In response, the newer white neighborhoods of East Portland began adopting restrivtive covenants, confining Black home-seekers of East Portland to the Albina neighborhood. Other housing practices contributed to Black families calling Albina home, including the Portland Realty Board mandate that allowed real estate agents to refuse selling property to Black or Asian populations in "white neighborhoods." This mandate was not changed until 1956. Despite these racist practices and the New Deal redlining, housing in the Albina area was affordable and men were able to find jobs as railroad porters and in the railroad shops due to the good transportation system.
+        </p>
+    </section>
+    <section id="vanport">
+        <h3>VANPORT FLOOD:</h3>
+        <p>
+            The Black community continued to grow in Albina until World War II, when many Black workers moved to Portland to fill jobs for the local war effort. In 1942, shipyards along the Columbia River attracted thousands of workers around the United States, increasing Portland's Black population from 1,931 in 1940 to over 20,000 in 1945. Most lived in Vanport - a community housing development that accommodated shipyard workers.
+            <br><br>
+            On May 30, 1948, the Vanport neighborhood faced a major flood that displaced over 18,000 residents within a single day. More than a third of those residents were Black. Albina, again, became a refuge for Black families who had few housing options. With older, less desirable housing and white families moving the suburbs, expanding the Black community in Albina did not interfere with or threaten those dynamics.
+            <br><br>
+            <img src="https://th-thumbnailer.cdn-si-edu.com/94MbCb5kjDr0_dEv6GZLuxc-o_M=/fit-in/1600x0/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/a4/a3/a4a36f12-fa58-4dfe-a02f-2fbdf777dda4/vanport009.jpg" alt="Vanport Flood" width="100%">
+            <h4>Image Source: Smithsonian Magazine, 2015</h4>
+        </p>
+    </section>
+    <section id="albina-thriving">
+        <h3>ALBINA THRIVING:</h3>
+        <p>
+            By the 1960s, four out of five Black Portlanders were residents of the Albina neighborhood. Following World War II and the Vanport Flood, the Black communitity in Albina began to thrive and a business district emerged in the area. Black-owned businesses, community centers, places of worship, art and cultural spaces, and more were the foundation of the Albina community.
+            <br><br>
+            Civil rights coordinating increased throughout the 1960s and 1970s, and spaces like Dawson Park and Billy Webb Elks Lodge were at the center of this work. The growing activism also increased tensions between police and the community, leading to a series of protests including the 1967 Albina Riot. The closeness of the community was what made it possible for Black activists to organize neighborhood groups, resulting in several independently, Black-run organizations in Albina.
+            <br><br>
+            <img src="https://opb-opb-prod.cdn.arcpublishing.com/resizer/oCDjkWu90CQxTAYtJ00QcjwZaCM=/1440x810/smart/cloudfront-us-east-1.images.arcpublishing.com/opb/SJPMNECX3JH4ZJ2N634YKPPKUU.jpg" alt="1967 Albina Riot" width="100%">
+            <h4>Image Source: Oregon Public Broadcasting, 2021</h4>
+        </p>
+    </section>
+    <section id="highway">
+        <h3>HIGHWAY 99</h3>
+        <p>
+            In 1950, the Oregon State Highway Department built a mile-long extension of Highway 99W that cut Albina off from the Willamette River. This decision became the first of many that destroyed the housing and businesses that made up the neighborhood. These decisions were made following city planning trends nationwide, that chose neighborhoods designated as "slum and blight" for urban renewal projects. While many Black residents were displaced, predominately white neighborhoods were preserved.
+            <br><br>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Oregon99HopPickersLange.jpg/220px-Oregon99HopPickersLange.jpg" alt="Highway 99" width="100%">
+            <h4>Image Source: Wikipedia</h4>
+        </p>
+    </section>
+    <section id="interstate">
+        <h3>INTERSTATE 5:</h3>
+        <p>
+            In 1962, the Interstate 5 freeway construction cut a strip through the Eliot, Boise, and Humboldt neighbohoods, displacing many residents and local businesses. The development of the freeway led to the demolition of housing and flooded the neighborhood with car traffic, effectively ending its residential appeal. Albina's population declined between 1950 and 1970, and with the people, the local businesses that served the local residents left too. 
+            <br><br>
+            In 1969, Albina community leaders and Portland city officials participated in the Model Cities Program which was implemented for Albina in an effort to revitalize the area. Despite their best attempts, grassroots community organizations could not prevail against the increased disinvestment in Albina. The development of the I-5 turned Albina from houses and shops to a collection of gas stations, parking lots, and car dealerships.
+            <br><br>
+            <img src="https://vintageportland.files.wordpress.com/2011/04/a2005-001-187-eastbank-and-minnesota-freeway-broadway-williams-and-weidler-northwest-1964.jpg" alt="Interstate 5 Freeway" width="100%">
+            <h4>Image Source: Vintage Oregon, 2011</h4>
+        </p>
+    </section>
+    <section id="coliseum">
+        <h3>VETERANS MEMORIAL COLISEUM:</h3>
+        <p>
+            The Coliseum has hosted some of Portland's biggest events, from the Trail Blazers' 1977 championship to concerts by The Beatles and Elvis Presley. The need for a venue for conventions, exhibitions, and sports events were identified by businesses and civic leaders in the early 1950s but the decision to develop it in the oldest portion of the Albina neighborhood was made in 1956. There was debate on locating the coliseum on the east side of the Willamette River or the downtown area. They decided on developing in Albina due to the proximity to the freeway. The construction of the Memorial Coliseum removed much of the Black community in Albina.
+            <br><br>
+            <img src="https://vintageportland.files.wordpress.com/2013/10/aerial-of-memorial-coliseum-looking-north-1969.jpg" alt="Aerial View of the Memorial Coliseum" width="100%">
+            <h4>Image Source: Vintage Oregon, 2013</h4>
+        </p>
+    </section>
+    <section id="rose-quarter">
+        <h3>ROSE QUARTER:</h3>
+        <p>
+            The Moda Center, previously known as the Rose Quarter Arena,  is home to the Portland Trail Blazers NBA team and hosts numerous music events. Although the Moda Center opened in 1995, the development is located in the "Rose Quarter" area, which also houses the Memorial Coliseum. The development of the Rose Quarter area began in the 1960s and its impacts can still be felt.
+            <br><br>
+            The Rose Quarter area is a scar on the city that serves as a reminder of how the decision to cut into a thriving neighborhood to expand freeway and highway development can create lasting impacts. Those impacts include making that area a hot spot for further development and construction, bringing car traffic, pollution, and carbon emmission exposure to the community.
+            <br><br>
+            <img src="https://res.cloudinary.com/dragonspell/images/w_800,h_480,dpr_auto,fl_progressive:steep,f_auto/w_800,h_480/v1643438390/www.travelportland.com/RQ-Campus-2015_DD6841F8-F339-4462-ACAD33CF931D2D25_8f0d1ac7-7f80-4b34-8369952862db38f9-scaled-aspect-ratio-5-3/RQ-Campus-2015_DD6841F8-F339-4462-ACAD33CF931D2D25_8f0d1ac7-7f80-4b34-8369952862db38f9-scaled-aspect-ratio-5-3.jpg" alt="Aerial View of the Rose Quarter" width="100%">
+            <h4>Image Source: Travel Oregon</h4>
+        </p>
+    </section>
+    <section id="emanuel">
+        <h3>EMANUEL HOSPITAL:</h3>
+        <p>
+            During the 1970s, the Eliot Neighborhood suffered from the Emanuel Hospital expansion, creating worse economic blight in the area. The expansion project displaced 171 families in Northeast Portland's Albina neighborhood - three-quarters of those families were Black. The City of Portland purchased and destroyed the 22 blocks of housing and businesses for the urban renewal project. 
+            <br><br>
+            At the time of the expansion project, the hospital, which is now known as the Legacy Emanuel Medical Center, purchased 55 acres from the city in that area. The expansion never happened and the families whose homes were taken from them were never compensated. While federal funding for redevelopment of these areas of Albina fell through, the expansion was delayed and left the once-populated neighborhood with empty lots for over 40 years.
+            <br><br>
+            <img src="https://www.legacyhealth.org/-/media/Images/Locations/Hospitals/Legacy-Emanuel-Medical-Center/EMC-1280x300.jpg" alt="Legacy Emanuel Medical Center" width="100%">
+            <h4>Image Source: Legacy Health</h4>
+        </p>
+    </section>
+    <section id="today">
+        <h3>ALBINA NEIGHBORHOOD TODAY:</h3>
+        <p>
+            By the 1990s, neighborhood activists were urging city officials to help, but the damage to the Black community had already been done. While the destruction of the urban renewal projects created hardships and generated distrust toward white decision makers, there was still a belief that Portland would continue to have an identifiable Black community. Home values in Albina tripled or quadrupled, effectively driving out lower-income families, most of which were Black renters and homeowners. The urban renewal projects, or gentrification, in Albina is reflected in the demographics now seen in the community. The Albina Neighborhood that was once 68% Black in 1990 was 28% in 2010.
+            <br><br>
+            These urban renewal projects resulted in the loss of generations of wealth that could have been accruing for Black families, had they not been forced to move or even supported during the developments. Most devastingly, it resulted in the loss of community and memories created in the area for impacted families and individuals.
+            <br><br>
+            Although there is no feasible way to repair the damages that have already been done to the Albina neighborhood and its former residents, decisions that are made moving forward can be made with them in mind. The City of Portland and the State of Oregon is continuing to plan the new I-5 Rose Quarter Improvement Project, which would improve safety and congestion where three major interestates converge. As they are creating their proposal, it is critical that they put the Albina neigborhood at the forefront of their decisions. This includes setting up job opportunities that helps build a pipeline for wealth generate, partnering with community organizations, working directly with the community, etc.
+            <br><br>
+            To stay connected with future work, there are several reinvestment programs that are engaged in rebuiliding Albina in a way that honors the past and creates a brighter future:
+            <br>
+            <li>Albina Vision Trust's <a class="content-link" href="https://albinavision.org/our-work/">AlbinaOne</a></li>
+            <li>Prosper Portland's <a class="content-link" href="https://prosperportland.us/portfolio-items/the-hill-block-n-russell-and-williams-collaboration/">Williams &amp; Russel Project</a></li>
+            <li>Venture Portland's <a class="content-link" href="http://ventureportland.org/business-districts/our-members/northnortheast/">Soul District</a></li>
+            <li>Portland Housing Bureau's <a class="content-link" href="https://www.portland.gov/phb/nnehousing/preference-policy">Preference Policy</a></li>
+        </p>
+    </section>
+</div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoibG5ndXllbjMiLCJhIjoiY2xnNWRqeGJqMDJmczNkbjk4NzhtbnN6aSJ9.O2lK1u2jRAWZ8pqFqvah-A'; 
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/lnguyen3/cli3aiode00w301r8885458cq', // stylesheet location
+        center: [-122.66464, 45.52981],
+        zoom: 10.5,
+    });
+    
+    // Disable drag and zoom handlers.
+    map.dragPan.disable();
+    map.scrollZoom.disable();
+    map.boxZoom.disable();
+    map.dragRotate.disable();
+    map.keyboard.disable();
+    map.doubleClickZoom.disable();
+    map.touchZoomRotate.disable();
+    map.touchZoomRotate.disableRotation();
+    
+    const chapters = {
+        'how-to': {
+            bearing: 0,
+            center: [-122.66464, 45.52981],
+            zoom: 10.5,
+        },
+        'intro': {
+            bearing: 0,
+            center: [-122.68192, 45.55618],
+            zoom: 12.5,
+            speed: 0.5,
+        },
+        'vanport': {
+            bearing: 120,
+            center: [-122.68193, 45.599306],
+            zoom: 13.5,
+            speed: 0.6,
+        },
+        'albina-thriving': {
+            bearing: 90,
+            center: [-122.68565, 45.55443],
+            zoom: 12.5,
+            speed: 0.5,
+        },
+        'highway': {
+            bearing: 180,
+            center: [-122.66162, 45.55591],
+            zoom: 13,
+            speed: 0.5,
+        },
+        'interstate': {
+            bearing: 90,
+            center: [-122.6785, 45.56944],
+            zoom: 12.8,
+            speed: 0.5,
+        },
+        'coliseum': {
+            bearing: 180,
+            center: [-122.66937, 45.53234],
+            zoom: 17,
+            speed: 0.5,
+        },
+        'rose-quarter': {
+            bearing: 90,
+                center: [-122.66788, 45.53195],
+            zoom: 17,
+            speed: 0.3,
+        }, 
+        'emanuel': {
+            bearing: 90,
+            center: [-122.67104, 45.54347],
+            zoom: 16,
+            speed: 0.5,
+        },
+        'today': {
+            bearing: 90,
+            center: [-122.68531, 45.55871],
+            zoom: 12.5,
+            speed: 1,
+        },
+    };
+    
+    // set variables for markers for chapters
+    var marker_vanport = new mapboxgl.Marker({color: '#f4c430', scale: 1.5}) // vanport
+        .setLngLat([-122.68193, 45.599306]);
+    
+    const popup_dawson = new mapboxgl.Popup({closeOnClick: false}) // popup for dawson park
+        .setLngLat([-122.66737, 45.54437])
+        .setHTML('<h4>Dawson Park<h4>');
+    var marker_dawson = new mapboxgl.Marker({color: '#f4c430', scale: 1.5}) // dawson park
+        .setLngLat([-122.66737, 45.54437])
+        .setPopup(popup_dawson);
+    
+    const popup_lodge = new mapboxgl.Popup({closeOnClick: false, anchor: 'top'}) // popup for Billy Webb Elks Lodge
+        .setLngLat([-122.66695, 45.53806])
+        .setHTML('<h4>Billy Webb Elks Lodge<h4>');
+    var marker_lodge = new mapboxgl.Marker({color: '#f4c430', scale: 1.5}) // Billy Webb Elks Lodge
+        .setLngLat([-122.66695, 45.53806])
+        .setPopup(popup_lodge);
+    
+    var marker_coliseum = new mapboxgl.Marker({color: '#f4c430', scale: 1.5}) // coliseum
+        .setLngLat([-122.66937, 45.53234]);
+    
+    var marker_rose = new mapboxgl.Marker({color: '#f4c430', scale: 1.5}) // rose quarter
+        .setLngLat([-122.66682, 45.53171]);
+    
+    var marker_hospital = new mapboxgl.Marker({color: '#f4c430', scale: 1.5}) // hospital
+        .setLngLat([-122.67104, 45.54347]);
+    
+    // set functions and settings for active chapters
+    let activeChapterName = 'intro';
+    
+    // function to set active chapter
+    function setActiveChapter(chapterName) {
+        if (chapterName === activeChapterName) return;
+
+        map.flyTo(chapters[chapterName]); // fly to specified location when connected chapter is active
+
+        document.getElementById(chapterName).classList.add('active');
+        document.getElementById(activeChapterName).classList.remove('active');
+
+        activeChapterName = chapterName;
+    }
+    
+    // function to enforce settings for element on screen
+    function isElementOnScreen(id) {
+        const element = document.getElementById(id);
+        const bounds = element.getBoundingClientRect();
+        return bounds.top < window.innerHeight && bounds.bottom > 0;
+    }
+    
+    window.onscroll = () => {
+        for (const chapterName in chapters) {
+            if (isElementOnScreen(chapterName)) {
+                setActiveChapter(chapterName);
+//                console.log(activeChapterName);
+                    if (activeChapterName == 'intro') {
+                        marker_vanport.remove();
+                        break;
+                    }
+                    if (activeChapterName == 'vanport') {
+//                        console.log('vanport');
+                        marker_vanport.addTo(map);
+                        popup_dawson.remove();
+                        marker_dawson.remove();
+                        popup_lodge.remove();
+                        marker_lodge.remove();
+                        break;
+                    }
+                    if (activeChapterName == 'albina-thriving') {
+                        popup_dawson.addTo(map);
+                        marker_dawson.addTo(map);
+                        popup_lodge.addTo(map);
+                        marker_lodge.addTo(map);
+                        marker_vanport.remove();
+                        map.removeLayer('route_h');
+                        break;
+                    }
+                    if (activeChapterName == 'highway') {
+                        map.addSource('route_h', {
+                            'type': 'geojson',
+                            'data': {
+                                'type': 'Feature',
+                                'properties': {},
+                                'geometry': {
+                                    'type': 'LineString',
+                                    'coordinates': [
+                                        [-122.66147, 45.58188],
+                                        [-122.66172, 45.52803]                        
+                                    ]
+                                }
+                            }
+                        });
+                        map.addLayer({
+                            'id': 'route_h',
+                            'type': 'line',
+                            'source': 'route_h',
+                            'layout': {
+                                'line-join': 'round',
+                                'line-cap': 'round'
+                                },
+                                'paint': {
+                                    'line-color': '#f4c430',
+                                    'line-width': 9
+                                }
+                        });
+                        map.removeLayer('route_i');
+                        popup_dawson.remove();
+                        marker_dawson.remove();
+                        popup_lodge.remove();
+                        marker_lodge.remove();
+                        break;
+                    }
+                if (activeChapterName == 'interstate') {
+                        marker_coliseum.remove();
+                        map.removeLayer('route_h');
+                        map.addSource('route_i', {
+                            'type': 'geojson',
+                            'data': {
+                                'type': 'Feature',
+                                'properties': {},
+                                'geometry': {
+                                    'type': 'LineString',
+                                    'coordinates': [
+                                        [-122.68268, 45.60442],
+                                        [-122.68433, 45.59602],
+                                        [-122.67953, 45.58577],
+                                        [-122.67864, 45.58197],
+                                        [-122.67852, 45.57039],
+                                        [-122.67878, 45.554923],
+                                        [-122.67852, 45.54757],
+                                        [-122.67852, 45.54713],
+                                        [-122.66931, 45.53802],
+                                        [-122.66526, 45.53191],
+                                        [-122.66576, 45.52174]
+                                    ]
+                                }
+                            }
+                        });
+                        map.addLayer({
+                            'id': 'route_i',
+                            'type': 'line',
+                            'source': 'route_i',
+                            'layout': {
+                                'line-join': 'round',
+                                'line-cap': 'round'
+                                },
+                                'paint': {
+                                    'line-color': '#f4c430',
+                                    'line-width': 9
+                                }
+                        });
+                        break;
+                    }
+                    if (activeChapterName == 'coliseum') {
+                        map.removeLayer('route_i');
+                        marker_rose.remove();
+                        marker_coliseum.addTo(map);
+                        break;
+                    }
+                    if (activeChapterName == 'rose-quarter') {
+                        marker_hospital.remove();
+                        marker_rose.addTo(map);
+                        break;
+                    }
+                    if (activeChapterName == 'emanuel') {
+                        marker_rose.remove();
+                        marker_coliseum.remove();
+                        marker_hospital.addTo(map);
+                        break;
+                    }
+                    if (activeChapterName == 'today') {
+                        marker_hospital.remove();
+                        break;
+                    }
+                break;
+            }
+        }
+
+    };
+    
+</script>
+</body>
+</html>
