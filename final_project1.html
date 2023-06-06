@@ -139,7 +139,7 @@
     <section id="how-to" class="active">
         <h3>WHAT ARE YOU LOOKING AT?</h3>
         <p>
-            The Albina Neighborhood in Portland, Oregon is known as the heart of Portland's Black community. It has a rich history that is full of stories, people, and culture that continues to influence the city that we know now. Although we are able to benefit from the entertainment and culture located in the Albina Neighborhood, it is important to acknowledge the parts of its history that is oftentimes overlooked. The history of the Albina Neighborhood serves as a reminder that Portland's liberal and progressive policies has not been and is not always true for historically marginalized communities. To learn more, continue scrolliing on this page.
+            The Albina Neighborhood in Portland, Oregon is known as the heart of Portland's Black community. It has a rich history that is full of stories, people, and culture that continues to influence the city that we know now. Although we are able to benefit from the entertainment and culture located in the Albina Neighborhood, it is important to acknowledge the parts of its history that is oftentimes overlooked. The history of the Albina Neighborhood serves as a reminder that Portland's liberal and progressive policies has not been and is not always true for historically marginalized communities. To learn more, continue scrolling on this page.
             <br><br>
             <img src ="https://www.oregonlive.com/resizer/yBafA6f2Eh7LZoPhVNqGIU2D09Y=/1280x0/smart/advancelocal-adapter-image-uploads.s3.amazonaws.com/image.oregonlive.com/home/olive-media/width2048/img/portland_impact/photo/ipjazz2jpg-5a04da7523f38dd2.jpg" alt="Historical Albina Neighborhood" width="100%">
             <h4>Source: Oregon Live, 2018</h4>
@@ -233,7 +233,7 @@
             <br><br>
             These urban renewal projects resulted in the loss of generations of wealth that could have been accruing for Black families, had they not been forced to move or even supported during the developments. Most devastingly, it resulted in the loss of community and memories created in the area for impacted families and individuals.
             <br><br>
-            Although there is no feasible way to repair the damages that have already been done to the Albina neighborhood and its former residents, decisions that are made moving forward can be made with them in mind. The City of Portland and the State of Oregon is continuing to plan the new I-5 Rose Quarter Improvement Project, which would improve safety and congestion where three major interestates converge. As they are creating their proposal, it is critical that they put the Albina neigborhood at the forefront of their decisions. This includes setting up job opportunities that helps build a pipeline for wealth generate, partnering with community organizations, working directly with the community, etc.
+            Although there is no feasible way to repair the damages that have already been done to the Albina neighborhood and its former residents, decisions that are made moving forward can be made with them in mind. The City of Portland and the State of Oregon is continuing to plan the new I-5 Rose Quarter Improvement Project, which would improve safety and congestion where three major interestates converge. As they are creating their proposal, it is critical that they put the Albina neigborhood at the forefront of their decisions. This includes setting up job opportunities that helps to build a pipeline for wealth generation, partnering with community organizations, working directly with the community, etc.
             <br><br>
             To stay connected with future work, there are several reinvestment programs that are engaged in rebuiliding Albina in a way that honors the past and creates a brighter future:
             <br>
@@ -283,7 +283,7 @@
         },
         'albina-thriving': {
             bearing: 0,
-            center: [-122.68565, 45.55743],
+            center: [-122.68631, 45.55871],
             zoom: 12.5,
             speed: 0.5,
         },
@@ -307,7 +307,7 @@
         },
         'rose-quarter': {
             bearing: 0,
-                center: [-122.66788, 45.53195],
+                center: [-122.66811, 45.53195],
             zoom: 17,
             speed: 0.3,
         }, 
@@ -319,7 +319,7 @@
         },
         'today': {
             bearing: 0,
-            center: [-122.68531, 45.55871],
+            center: [-122.68631, 45.55871],
             zoom: 12.5,
             speed: 1,
         },
@@ -351,6 +351,9 @@
     
     var marker_hospital = new mapboxgl.Marker({color: '#f4c430', scale: 1.5}) // hospital
         .setLngLat([-122.67104, 45.54347]);
+    
+    // route lines
+   
     
     // set functions and settings for active chapters
     let activeChapterName = 'intro';
@@ -402,6 +405,11 @@
                         break;
                     }
                     if (activeChapterName == 'highway') {
+                        map.removeLayer('route_i');
+                        popup_dawson.remove();
+                        marker_dawson.remove();
+                        popup_lodge.remove();
+                        marker_lodge.remove();
                         map.addSource('route_h', {
                             'type': 'geojson',
                             'data': {
@@ -410,8 +418,10 @@
                                 'geometry': {
                                     'type': 'LineString',
                                     'coordinates': [
+                                        [-122.66973, 45.59580],
                                         [-122.66147, 45.58188],
-                                        [-122.66172, 45.52803]                        
+                                        [-122.66172, 45.52803],
+                                        [-122.66175, 45.520451]
                                     ]
                                 }
                             }
@@ -429,11 +439,6 @@
                                     'line-width': 9
                                 }
                         });
-                        map.removeLayer('route_i');
-                        popup_dawson.remove();
-                        marker_dawson.remove();
-                        popup_lodge.remove();
-                        marker_lodge.remove();
                         break;
                     }
                 if (activeChapterName == 'interstate') {
@@ -447,6 +452,8 @@
                                 'geometry': {
                                     'type': 'LineString',
                                     'coordinates': [
+                                        [-122.68012, 45.60991],
+                                        [-122.68212, 45.60636],
                                         [-122.68268, 45.60442],
                                         [-122.68433, 45.59602],
                                         [-122.67953, 45.58577],
@@ -457,7 +464,8 @@
                                         [-122.67852, 45.54713],
                                         [-122.66931, 45.53802],
                                         [-122.66526, 45.53191],
-                                        [-122.66576, 45.52174]
+                                        [-122.66576, 45.52174], 
+                                        [-122.66703, 45.51767]
                                     ]
                                 }
                             }
